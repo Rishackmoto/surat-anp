@@ -22,7 +22,7 @@ app.post("/surat", async (req, res) => {
   try {
     const { Jenis, Divisi, Perihal, Tujuan, TanggalSurat, UserCreated } = req.body;
 
-    const pool = await sql.connect(sqlConfig);
+    const pool = await poolPromise;
     const request = pool.request();
 
     request.input("Jenis", Jenis);
@@ -47,7 +47,7 @@ app.post("/surat", async (req, res) => {
 
 app.get("/surat", async (req, res) => {
   try {
-    const pool = await sql.connect(sqlConfig);
+    const pool = await poolPromise;
     const result = await pool
       .request()
       .query("SELECT * FROM Surat ORDER BY CreatedAt DESC");
