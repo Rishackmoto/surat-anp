@@ -5,6 +5,15 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 const { poolPromise } = require("./db");
 
+
+// 🔍 Log environment variable untuk debugging
+console.log('DB_USER:', process.env.DB_USER);
+console.log('DB_PASSWORD:', process.env.DB_PASSWORD ? '***' : 'Not Set');
+console.log('DB_SERVER:', process.env.DB_SERVER);
+console.log('DB_DATABASE:', process.env.DB_DATABASE);
+console.log('DB_PORT:', process.env.DB_PORT);
+console.log('API_BASE_URL:', process.env.API_BASE_URL);
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -23,6 +32,18 @@ app.post("/surat", async (req, res) => {
     request.input("Tujuan", Tujuan);
     request.input("TanggalSurat", TanggalSurat);
     request.input("UserCreated", UserCreated);
+
+    
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS: " + origin));
+    }
+  },
+  credentials: true
+}));
 
     const result = await request.execute("GenerateNomorSurat");
 
