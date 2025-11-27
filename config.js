@@ -1,11 +1,10 @@
-module.exports = {
-  sqlConfig: {
-    user: "rishackmoto_hiswana",
-    password: "LwpImtc1inAh$16",
-    server: "192.99.150.165",
-    database: "elboz79_rishackmoto_hiswana",
-    options: {
-      trustServerCertificate: true
-    }
+const sqlConfig = {
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  server: process.env.DB_SERVER,
+  database: process.env.DB_DATABASE,
+  port: parseInt(process.env.DB_PORT),
+  options: {
+    trustServerCertificate: true
   }
 };
