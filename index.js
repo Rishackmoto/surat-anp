@@ -10,7 +10,11 @@ app.use(bodyParser.json());
 
 sql.connect(sqlConfig)
   .then(() => console.log("Connected to SQL Server"))
-  .catch(err => console.error("SQL connection failed", err));
+  .catch(err => {
+    console.error("SQL connection failed", err);
+    // Biar aplikasi tetap hidup
+  });
+
 app.use(express.json());
 
 app.post("/surat", async (req, res) => {
