@@ -13,11 +13,13 @@ sql.connect(sqlConfig)
   .catch(err => console.error("SQL connection failed", err));
 app.use(express.json());
 
-  app.post("/surat", async (req, res) => {
+app.post("/surat", async (req, res) => {
   try {
     const { Jenis, Divisi, Perihal, Tujuan, TanggalSurat, UserCreated } = req.body;
 
-    const request = new sql.Request();
+    const pool = await sql.connect(sqlConfig);
+    const request = pool.request();
+
     request.input("Jenis", Jenis);
     request.input("Divisi", Divisi);
     request.input("Perihal", Perihal);
@@ -37,8 +39,6 @@ app.use(express.json());
     return res.json({ success: false, message: err.message });
   }
 });
-
-
 
 app.get("/surat", async (req, res) => {
   try {
