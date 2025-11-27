@@ -2,7 +2,8 @@ const express = require("express");
 const sql = require("mssql");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { sqlConfig } = require("./config");
+require("dotenv").config();
+const { poolPromise } = require("./db");
 
 const app = express();
 app.use(cors());
