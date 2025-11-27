@@ -1,4 +1,4 @@
-require("dotenv").config({ path: 'D://flutter/2025/surat_anp/surat-anp-api/.env' });
+require("dotenv").config({ path: 'D://flutter/2025/surat_anp/.env' });
 console.log("🔍 DB_SERVER dari .env:", process.env.DB_SERVER);
 
 const sql = require("mssql");
