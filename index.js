@@ -19,7 +19,6 @@ const app = express(); // 👉 HARUS ADA DI ATAS SEMUA MIDDLEWARE
 // Allowed origins
 const allowedOrigins = [
   "https://surat-anp-api.up.railway.app",
-  "https://app.rishackmoto.com",
   "http://localhost:3000"
 ];
 
