@@ -1,30 +1,28 @@
-require("dotenv").config({ path: 'D://flutter/2025/surat_anp/.env' });
-console.log("🔍 DB_SERVER dari .env:", process.env.DB_SERVER);
-
-const sql = require("mssql");
 require("dotenv").config();
+const sql = require("mssql");
 
-const config = {
+const sqlConfig = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   server: process.env.DB_SERVER,
   database: process.env.DB_DATABASE,
-  port: parseInt(process.env.DB_PORT),
+  port: Number(process.env.DB_PORT) || 1433,
   options: {
-    encrypt: false,
-    trustServerCertificate: true,
-  },
+    encrypt: true,
+    trustServerCertificate: true
+  }
 };
 
-const poolPromise = new sql.ConnectionPool(config)
+// 🔥 Pool DB tetap 1 agar tidak overload
+const poolPromise = new sql.ConnectionPool(sqlConfig)
   .connect()
   .then(pool => {
-    console.log("🟢 Koneksi berhasil");
+    console.log("🟢 SQL Connected");
     return pool;
   })
-  .catch(err => console.error("❌ Koneksi gagal!", err));
+  .catch(err => {
+    console.error("❌ SQL Connection Failed", err);
+    throw err;
+  });
 
-module.exports = {
-  sql,
-  poolPromise
-};
+module.exports = { sql, poolPromise, sqlConfig };
